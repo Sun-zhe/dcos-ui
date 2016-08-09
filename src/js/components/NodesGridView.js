@@ -7,8 +7,8 @@ var InternalStorageMixin = require('../mixins/InternalStorageMixin');
 var MesosStateStore = require('../stores/MesosStateStore');
 var NodesGridDials = require('./NodesGridDials');
 var RequestErrorMsg = require('./RequestErrorMsg');
-var MAX_SERVICES_TO_SHOW = 8;
-var OTHER_SERVICES_COLOR = 8;
+var MAX_SERVICES_TO_SHOW = 32;
+var OTHER_SERVICES_COLOR = 32;
 
 var NodesGridView = React.createClass({
 
@@ -151,21 +151,15 @@ var NodesGridView = React.createClass({
     );
   },
 
-  getActiveServiceIds: function (nodes) {
-    var serviceIDs = {};
-
-    nodes.forEach(function (node) {
-      node.getServiceIDs().forEach(function (id) {
-        serviceIDs[id] = true;
-      });
+  getActiveServiceIds: function () {
+    return this.props.services.map(function (service) {
+      return service.getId();
     });
-
-    return Object.keys(serviceIDs);
   },
 
   getServicesList: function (props) {
     // Return a list of unique service IDs from the selected hosts.
-    var activeServiceIds = this.getActiveServiceIds(props.hosts);
+    var activeServiceIds = this.getActiveServiceIds();
     var data = this.internalStorage_get();
 
     // Filter out inactive services
