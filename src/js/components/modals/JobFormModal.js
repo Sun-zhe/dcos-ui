@@ -9,7 +9,6 @@ import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
 import MetronomeStore from '../../stores/MetronomeStore';
-import Icon from '../../components/Icon';
 import Job from '../../structs/Job';
 import JobForm from '../JobForm';
 import JobUtil from '../../utils/JobUtil';
@@ -239,7 +238,7 @@ class JobFormModal extends mixin(StoreMixin) {
     // Stringify error details
     let errorList = null;
     if (errorMessage.details != null) {
-      let errorItems = errorMessage.details.map(function ({path, errors}) {
+      errorList = errorMessage.details.map(function ({path, errors}) {
         let fieldId = 'general';
 
         // See: https://github.com/dcos/metronome/issues/71
@@ -270,12 +269,6 @@ class JobFormModal extends mixin(StoreMixin) {
         return `${fieldId}: ${errors}`;
 
       });
-
-      errorList = (
-          <ul>
-            {errorItems}
-          </ul>
-        );
     }
 
     return (
