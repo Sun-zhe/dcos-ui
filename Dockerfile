@@ -14,6 +14,8 @@ RUN apk update && apk add \
 	nodejs \
 	&& rm -rf /var/cache/apk/*
 
+RUN npm set registry http://registry.npmjs.org/
+
 RUN npm install -g gulp
 
 COPY . /usr/src/dcos-ui
