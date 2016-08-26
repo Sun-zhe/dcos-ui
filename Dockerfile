@@ -1,5 +1,8 @@
 FROM alpine
 
+ENV http_proxy http://web-proxy.houston.hp.com:8080
+ENV https_proxy https://web-proxy.houston.hp.com:8080
+
 # install dependencies for imagemin
 RUN apk update && apk add \
 	autoconf \
@@ -11,7 +14,7 @@ RUN apk update && apk add \
 	nodejs \
 	&& rm -rf /var/cache/apk/*
 
-RUN npm install -g gulp
+RUN npm --proxy http://web-proxy.houston.hp.com:8080 install -g gulp
 
 COPY . /usr/src/dcos-ui
 WORKDIR /usr/src/dcos-ui
