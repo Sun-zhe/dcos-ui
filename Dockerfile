@@ -14,11 +14,15 @@ RUN apk update && apk add \
 	nodejs \
 	&& rm -rf /var/cache/apk/*
 
+RUN npm config set proxy http://web-proxy.houston.hp.com:8080
+
+RUN npm config set https-proxy http://web-proxy.houston.hp.com:8080
+
 RUN npm --proxy http://web-proxy.houston.hp.com:8080 install -g gulp
 
 COPY . /usr/src/dcos-ui
 WORKDIR /usr/src/dcos-ui
 
-RUN npm install
+RUN npm --proxy http://web-proxy.houston.hp.com:8080 install
 
 CMD ["npm", "run", "serve"]
