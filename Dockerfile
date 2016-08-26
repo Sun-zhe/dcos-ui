@@ -14,9 +14,11 @@ RUN apk update && apk add \
 	nodejs \
 	&& rm -rf /var/cache/apk/*
 
-RUN npm config set proxy http://web-proxy.houston.hp.com:8080
+RUN npm set registry http://registry.npmjs.org/
 
-RUN npm config set https-proxy http://web-proxy.houston.hp.com:8080
+RUN npm config --global set proxy http://web-proxy.houston.hp.com:8080
+
+RUN npm config --global set https-proxy http://web-proxy.houston.hp.com:8080
 
 RUN npm --proxy http://web-proxy.houston.hp.com:8080 install -g gulp
 
