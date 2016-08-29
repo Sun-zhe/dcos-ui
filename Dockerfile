@@ -22,11 +22,11 @@ RUN npm config set https-proxy https://web-proxy.houston.hp.com:8080
 
 #RUN npm set strict-ssl false
 
-RUN npm --proxy http://web-proxy.houston.hp.com:8080 --https-proxy https://web-proxy.houston.hp.com:8080 install -g gulp
+RUN npm --proxy http://web-proxy.houston.hp.com:8080 --https-proxy https://web-proxy.houston.hp.com:8080 install -g gulp --registry http://registry.npmjs.org/
 
 COPY . /usr/src/dcos-ui
 WORKDIR /usr/src/dcos-ui
 
-RUN npm --proxy http://web-proxy.houston.hp.com:8080 --https-proxy https://web-proxy.houston.hp.com:8080 install
+RUN npm --proxy http://web-proxy.houston.hp.com:8080 --https-proxy https://web-proxy.houston.hp.com:8080 install --registry http://registry.npmjs.org/
 
 CMD ["npm", "run", "serve"]
