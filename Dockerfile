@@ -15,7 +15,7 @@ RUN apk update && apk add \
 	&& rm -rf /var/cache/apk/*
 
 #RUN npm config set registry http://registry.npmjs.org/
-
+RUN npm cache clear 
 RUN npm config set http-proxy http://web-proxy.houston.hp.com:8080
 
 RUN npm config set https-proxy https://web-proxy.houston.hp.com:8080
