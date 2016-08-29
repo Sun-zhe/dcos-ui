@@ -24,11 +24,11 @@ RUN apk update && apk add \
 
 #RUN npm set strict-ssl false
 
-RUN npm install -g gulp 
+RUN npm --proxy http://web-proxy.houston.hp.com:8080 install -g gulp 
 
 COPY . /usr/src/dcos-ui
 WORKDIR /usr/src/dcos-ui
 
-RUN npm install 
+RUN npm --proxy http://web-proxy.houston.hp.com:8080 install 
 
 CMD ["npm", "run", "serve"]
