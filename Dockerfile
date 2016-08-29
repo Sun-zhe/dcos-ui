@@ -3,6 +3,8 @@ FROM alpine
 #ENV http_proxy http://web-proxy.houston.hp.com:8080
 #ENV https_proxy https://web-proxy.houston.hp.com:8080
 
+RUN npm config set registry http://registry.npmjs.org/
+
 # install dependencies for imagemin
 RUN apk update && apk add \
 	autoconf \
