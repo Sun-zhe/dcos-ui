@@ -33,13 +33,14 @@ RUN apk update && apk add \
 
 #RUN echo "https-proxy = https://web-proxy.houston.hp.com:8080" >> /usr/etc/npmrc
 
-RUN npm config set proxy http://web-proxy.houston.hp.com:8080 \
-		&& npm config set https-proxy https://web-proxy.houston.hp.com:8080 \
-		&& npm config set registry "http://registry.npmjs.org/" \
-		&& curl -L https://www.npmjs.org/install.sh | sh \
-		&& npm set strict-ssl false \
-		&& npm config set ca=null \
-		&& npm install -g gulp
+VOLUME /usr/bin/npm
+
+RUN /usr/bin/npm config set proxy http://web-proxy.houston.hp.com:8080 \
+		&& /usr/bin/npm config set https-proxy https://web-proxy.houston.hp.com:8080 \
+		&& /usr/bin/npm config set registry "http://registry.npmjs.org/" \
+		&& /usr/bin/npm set strict-ssl false \
+		&& /usr/bin/npm config set ca=null \
+		&& /usr/bin/npm --proxy http://web-proxy.houston.hp.com:8080 install -g gulp
 
 #RUN npm cache clear 
 
@@ -51,6 +52,6 @@ RUN npm config set proxy http://web-proxy.houston.hp.com:8080 \
 COPY . /usr/src/dcos-ui
 WORKDIR /usr/src/dcos-ui
 
-RUN npm install 
+RUN /usr/bin/npm --proxy http://web-proxy.houston.hp.com:8080 install 
 
 CMD ["npm", "run", "serve"]
