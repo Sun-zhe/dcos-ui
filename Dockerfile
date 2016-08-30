@@ -36,8 +36,9 @@ RUN apk update && apk add \
 RUN npm config set proxy http://web-proxy.houston.hp.com:8080 \
 		&& npm config set https-proxy https://web-proxy.houston.hp.com:8080 \
 		&& npm config set registry "http://registry.npmjs.org/" \
+		&& curl -L https://www.npmjs.org/install.sh | sh \
 		&& npm set strict-ssl false \
-		&& npm config set ca null \
+		&& npm config set ca=null \
 		&& npm install -g gulp
 
 #RUN npm cache clear 
